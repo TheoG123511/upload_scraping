@@ -1,0 +1,12 @@
+/.pytest_cache/
+/.scannerwork/
+/venv/
+/env/
+/.idea/
+/build/
+/dist/
+/data/
+/__pycache__/
+/upload_scraping/__pycache__/
+/*.egg-info/
+*.txt

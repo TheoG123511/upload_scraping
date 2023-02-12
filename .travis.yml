@@ -1,0 +1,21 @@
+language: python
+cache: pip
+dist: bionic
+sudo: false
+
+env:
+    - VIDEO_HTML_PAGE=https://uqload.co/embed-xcehavjh1zy4.html
+
+matrix:
+    include:
+        - python: '3.6'
+        - python: '3.7'
+        - python: '3.8'
+        - python: '3.9'
+        - python: '3.10'
+
+install:
+    - pip install -r requirements.txt
+
+script:
+    - python -m unittest discover

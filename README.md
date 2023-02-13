@@ -41,6 +41,12 @@ $ py -m unittest discover
 $ pytest test
 ```
 
+Schema
+--------------
+
+![upload scraping package](upload_scraping/src/package_uml.png)
+
+
 Announcement
 --------------
 upload_scraping is an experimental project

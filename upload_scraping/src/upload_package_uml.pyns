@@ -1,0 +1,19 @@
+# PynSource Version 1.2
+{'type':'meta', 'info1':'Lorem ipsum dolor sit amet, consectetur adipiscing elit is latin. Comments are saved.'}
+{'type':'umlshape', 'id':'UploadVideoDownloaderApp', 'x':424, 'y':29, 'width':250, 'height':458, 'attrs': '_DONE|_DOWNLOAD_EX|_EXIT_CODE|_MAX_THREAD|_TEST_MODE|_TIMEOUT|_counter|_log|history|stats|verbose', 'meths': '__init__|_error|_file_download|_print_exit|_process_download|_run|_waiting|_waiting_download|_write_log|about|color|download|parse_arg|parse_file'}
+{'type':'umlshape', 'id':'Config', 'x':871, 'y':212, 'width':178, 'height':112, 'attrs': 'LOG_FILE_PATH|TEST_DIR|_BASE_MODULE|_BASE_MODULE_COMPILED', 'meths': ''}
+{'type':'umlshape', 'id':'StatusCode', 'x':946, 'y':138, 'width':110, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'LinkIsNotValid', 'x':833, 'y':62, 'width':150, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'LinkIsDown', 'x':1293, 'y':55, 'width':110, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'UploadVideoDownloaderAppError', 'x':1116, 'y':151, 'width':300, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'Exception', 'x':1107, 'y':53, 'width':100, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'UploadDownloader', 'x':1179, 'y':328, 'width':170, 'height':378, 'attrs': 'BUFFER_SIZE|ENCODING|_DONE|_MINIMAL_SIZE|_PARSER|_TIMEOUT|_VIDEO_ASK|_log|domain|name|output|proxy|url|verbose', 'meths': '__init__|_parser|_write_log|clean|download|run'}
+{'type':'umlshape', 'id':'Logging', 'x':1467, 'y':347, 'width':138, 'height':298, 'attrs': '_TEST_MODE|_WRITE_MODE|_file_handler|_format|_formatter|_level|_logger|_stream_handler|debug_handler|debug_stream|text', 'meths': '__init__|_initialize_file|display_color|write_log'}
+{'type':'umlshape', 'id':'Colors', 'x':732, 'y':128, 'width':82, 'height':192, 'attrs': 'BOLD|ENDC|FAIL|HEADER|OKBLUE|OKCYAN|OKGREEN|UNDERLINE|WARNING', 'meths': ''}
+{'type':'umlshape', 'id':'Singleton', 'x':801, 'y':383, 'width':100, 'height':106, 'attrs': '_instances|_lock', 'meths': '__call__'}
+{'type':'umlshape', 'id':'Utils', 'x':1467, 'y':79, 'width':170, 'height':234, 'attrs': 'UPLOAD_GET_HEADERS|UPLOAD_VIDEO_HEADERS', 'meths': 'create_directory|create_path|delete|exist|handleRemoveReadonly|is_directory|is_valid|run|run_in_thread'}
+{'type':'edge', 'id':'LinkIsDown_to_Exception', 'source':'LinkIsDown', 'target':'Exception', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'UploadVideoDownloaderAppError_to_Exception', 'source':'UploadVideoDownloaderAppError', 'target':'Exception', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'StatusCode_to_Exception', 'source':'StatusCode', 'target':'Exception', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'LinkIsNotValid_to_Exception', 'source':'LinkIsNotValid', 'target':'Exception', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'Logging_to_UploadDownloader', 'source':'Logging', 'target':'UploadDownloader', 'uml_edge_type': 'composition'}

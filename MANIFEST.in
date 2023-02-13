@@ -1,0 +1,25 @@
+exclude upload_scraping/*
+include ../setup.py
+include ../README.md
+include ../LICENSE
+
+include upload_scraping/__init__.py
+include upload_scraping/src/__init__.py
+include upload_scraping/test/__init__.py
+include upload_scraping/src/log/__init__.py
+include upload_scraping/src/utils/__init__.py
+
+include upload_scraping/src/config.py
+include upload_scraping/src/upload_downloader.py
+include upload_scraping/src/exceptions.py
+include upload_scraping/src/version.py
+
+include upload_scraping/src/utils/colors.py
+include upload_scraping/src/utils/singleton.py
+include upload_scraping/src/utils/utils.py
+
+include upload_scraping/src/log/log.py
+
+include upload_scraping/test/test_upload_downloader.py
+include upload_scraping/test/test_upload_video_downloader.py
+include upload_scraping/test/link.txt

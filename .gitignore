@@ -10,3 +10,4 @@
 /upload_scraping/__pycache__/
 /*.egg-info/
 *.txt
+!requirements.txt

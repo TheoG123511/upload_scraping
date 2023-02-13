@@ -1,0 +1,11 @@
+requests~=2.28.2
+pytest
+bs4~=0.0.1
+lxml
+numpy
+Brotli
+python-dotenv
+setuptools==58.2.0
+slimit~=0.8.1
+Js2Py~=0.74
+beautifulsoup4~=4.11.2

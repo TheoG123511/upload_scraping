@@ -71,6 +71,14 @@ class UploadVideoDownloaderApp(object):
             help='output directory',
             required=False
         )
+        download_args.add_argument(
+            '-t',
+            '--thread',
+            dest='thread',
+            default=int(),
+            help='Number of thread for scraping (only for config file. default value 5)',
+            required=False
+        )
         download_args.add_argument('-v', '--verbose', action='store_true', help='verbose mode')
         download_args.set_defaults(func=self.download)
         # about
@@ -85,6 +93,28 @@ class UploadVideoDownloaderApp(object):
         )
         about_args.add_argument('-v', '--verbose', action='store_true', help='verbose mode')
         about_args.set_defaults(func=self.about)
+        # for test, developp mode
+        video_html_page = os.environ.get("VIDEO_HTML_PAGE", None)
+        service = os.environ.get("SERVICE", None)
+        verbose = os.environ.get("VERBOSE", None)
+        if self._TEST_MODE:
+            if service:
+                sys.argv.append(service)
+            if video_html_page:
+                sys.argv.append("-s")
+                sys.argv.append(video_html_page)
+            if verbose:
+                sys.argv.append("-v")
+        if len(sys.argv) == 1 and not self._TEST_MODE:
+            parser.print_help(), self.color()
+        else:
+            try:
+                args = parser.parse_args()
+                self.verbose = getattr(args, 'verbose', False)
+                args.func(args)
+            except UploadVideoDownloaderAppError as err:
+                self._write_log("Error: %s" % err)
+                self.color(), sys.exit(1)
 
     def download(self, args) -> None:
         self.history = []
@@ -97,6 +127,8 @@ class UploadVideoDownloaderApp(object):
         if not Utils.exist(args.source) and Utils.is_valid(args.source):
             self._process_download(args.source, args.output if args.output else output)
         elif Utils.exist(args.source):
+            if args.thread:
+                self._MAX_THREAD = args.thread
             self._file_download(args.source, args.output if args.output else output)
         elif not Utils.is_valid(args.source):
             raise UploadVideoDownloaderAppError("%s is not valid url !" % args.source)

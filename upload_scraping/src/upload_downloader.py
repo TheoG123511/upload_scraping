@@ -4,7 +4,6 @@ try:
     import copy
     import urllib3
     import requests
-    import slimit
     from slimit import ast
     from slimit.parser import Parser
     from slimit.visitors import nodevisitor
@@ -12,7 +11,7 @@ try:
     from urllib.parse import urlparse
     from upload_scraping.src.utils.utils import Utils
     from upload_scraping.src.log.log import Logging
-    from exceptions import LinkIsNotValid, StatusCode, LinkIsDown
+    from upload_scraping.src.exceptions import LinkIsNotValid, StatusCode, LinkIsDown
 except ImportError:
     raise ImportError
 
@@ -116,95 +115,3 @@ class UploadDownloader:
 
     def _write_log(self, message: str) -> None:
         self._log.write_log(self, message)
-
-
-if __name__ == '__main__':
-    # "https://uqload.co/embed-xcehavjh1zy4.html"
-
-    path = r"F:/movie/game-of-thrones/saison1"
-    path_link = r"F:/movie/game-of-thrones/saison1/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison2"
-    path_link = r"F:/movie/game-of-thrones/saison2/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison3"
-    path_link = r"F:/movie/game-of-thrones/saison3/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison4"
-    path_link = r"F:/movie/game-of-thrones/saison4/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison5"
-    path_link = r"F:/movie/game-of-thrones/saison5/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison6"
-    path_link = r"F:/movie/game-of-thrones/saison6/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison7"
-    path_link = r"F:/movie/game-of-thrones/saison7/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()
-
-    path = r"F:/movie/game-of-thrones/saison8"
-    path_link = r"F:/movie/game-of-thrones/saison8/link.txt"
-    with open(path_link, "r", encoding=UploadDownloader.ENCODING) as r:
-        data = r.read()
-    data = data.split("\n")
-    for link in data:
-        if not len(link):
-            continue
-        upload = UploadDownloader(link, path)
-        upload.download()

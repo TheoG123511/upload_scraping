@@ -8,7 +8,7 @@ try:
     import errno
     import stat
     import re
-    from exceptions import StatusCode
+    from upload_scraping.src.exceptions import StatusCode
 except ImportError:
     raise ImportError
 
@@ -119,9 +119,3 @@ class Utils:
             r'(?::\d+)?'  # optional port
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
         return url is not None and regex.search(url)
-
-    @staticmethod
-    def random(_min: int = 1, _max: int = 5) -> int:
-        if _max < _min:
-            return _max
-        return secrets.choice([i for i in range(_min, _max + 1)])

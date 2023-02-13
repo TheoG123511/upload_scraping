@@ -10,4 +10,5 @@
 /upload_scraping/__pycache__/
 /*.egg-info/
 *.txt
+*.mp4
 !requirements.txt

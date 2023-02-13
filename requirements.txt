@@ -6,6 +6,7 @@ numpy
 Brotli
 python-dotenv
 setuptools==58.2.0
-slimit~=0.8.1
+slimit
 Js2Py~=0.74
+ply==3.4
 beautifulsoup4~=4.11.2

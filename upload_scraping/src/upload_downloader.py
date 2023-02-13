@@ -28,6 +28,7 @@ class UploadDownloader:
 
     def __init__(self, url: str, output: str, verbose: bool = False, proxy: dict or None = None) -> None:
         self.url: str = url
+        self._data: dict = {}
         self.verbose: bool = verbose
         self.domain = urlparse(self.url)
         self.proxy: dict or None = proxy
@@ -39,6 +40,21 @@ class UploadDownloader:
     @property
     def name(self) -> str:
         return self.url.split("/")[-1].replace(".html", ".mp4")
+
+    @property
+    def title(self) -> str:
+        title = self._data.get("title")
+        return title if title else ""
+
+    @property
+    def poster(self) -> str:
+        poster = self._data.get("poster")
+        return poster if poster else ""
+
+    @property
+    def sources(self) -> str:
+        sources = self._data.get("sources", [])
+        return "" if not len(sources) else sources[0][1:-1]
 
     def _parser(self) -> str:
         _headers = copy.copy(Utils.UPLOAD_GET_HEADERS)
@@ -64,9 +80,12 @@ class UploadDownloader:
                             field[_name] = _list
                         else:
                             field[_name] = getattr(node.right, 'value', '')
+                            if len(field[_name]):
+                                field[_name] = field[_name][1:-1]
                 break
         if not len(field):
             raise LinkIsDown("%s link is down !" % self.url)
+        self._data = field
         return str(field.get("sources")[0][1:-1])
 
     def clean(self) -> None:
@@ -77,7 +96,7 @@ class UploadDownloader:
     def run(self) -> None:
         self.download()
 
-    def download(self, restart: bool = False) -> bool:
+    def download(self, restart: bool = False, download: bool = True) -> bool:
         counter: int = 0
         if Utils.exist(self.output) and not restart:
             return True
@@ -85,13 +104,15 @@ class UploadDownloader:
         try:
             _link = self._parser()
         except (LinkIsDown, StatusCode) as err:
-            self._write_log("Exception %s" % err), self.clean()
-            return False
+            self.clean()
+            raise err
+        if not download:
+            return _link.endswith(".mp4")
         domain = urlparse(_link)
         _headers = copy.copy(Utils.UPLOAD_VIDEO_HEADERS)
         _headers["Host"] = "%s" % domain.netloc
         _headers["Referer"] = "https://%s/" % self.domain.netloc
-        _r = requests.get(_link, headers=_headers, stream=True, proxies=self.proxy)
+        _r = requests.get(self.sources, headers=_headers, stream=True, proxies=self.proxy)
         if _r.status_code != self._DONE:
             raise StatusCode("Bad status code %s" % _r.status_code)
         try:

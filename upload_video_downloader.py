@@ -17,6 +17,7 @@ class UploadVideoDownloaderApp(object):
 
     _TEST_MODE: bool = bool(os.environ.get("DEBUG", 0))
     _EXIT_CODE: int = 0
+    _NB: int = 15
     _TIMEOUT: int = .666
     _MAX_THREAD: int = 2
     _DONE: str = "done_download"
@@ -76,7 +77,7 @@ class UploadVideoDownloaderApp(object):
             '--thread',
             dest='thread',
             default=int(),
-            help='Number of thread for scraping (only for config file. default value 5)',
+            help='Number of thread for scraping (only for config file. default value %s)' % self._MAX_THREAD,
             required=False
         )
         download_args.add_argument('-v', '--verbose', action='store_true', help='verbose mode')
@@ -134,7 +135,40 @@ class UploadVideoDownloaderApp(object):
             raise UploadVideoDownloaderAppError("%s is not valid url !" % args.source)
 
     def about(self, args) -> None:
-        pass
+        if Utils.exist(args.source):
+            self._file_about(args.source)
+        elif args.source.endswith(".html"):
+            self._process_about(args.source)
+        elif not args.source.endswith(".html") or not Utils.is_valid(args.source):
+            raise UploadVideoDownloaderAppError("%s is not a valid link !" % args.source)
+        self._print_exit(by_user=False)
+
+    def _process_about(self, url: str) -> None:
+        try:
+            downloader = UploadDownloader(url, "", verbose=self.verbose)
+            downloader.download(download=False)
+            self._write_log("Url: %s" % url)
+            self._write_log("Title: %s" % downloader.title)
+            self._write_log("Poster: %s" % downloader.poster)
+            self._write_log("Mp4 file: %s" % downloader.sources)
+            self._write_log("Output file name: %s" % downloader.name)
+            self._write_log("{0}".format("#" * (self._NB * 2)))
+            self.stats[self._DONE] += 1
+        except (StatusCode, LinkIsNotValid) as _err:
+            self.stats[self._DOWNLOAD_EX] += 1
+            self._write_log("%s is down !" % url)
+        except (KeyboardInterrupt, LogWriteError):
+            self._print_exit()
+            self.color(), sys.exit(self._EXIT_CODE)
+
+    def _file_about(self, path: str) -> None:
+        for link in self.parse_file(path):
+            try:
+                if not len(link):
+                    continue
+                self._process_about(link)
+            except KeyboardInterrupt:
+                self._print_exit(), self.color(), sys.exit(self._EXIT_CODE)
 
     def _file_download(self, path: str, output_dir: str) -> None:
         for link in self.parse_file(path):

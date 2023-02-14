@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  upload_scraping:
+    tty: true
+    volumes:
+      - data:/data
+    # :env_file:
+    #  - .env
+    restart: always
+    container_name: 'src'
+    build:
+      context: .
+      dockerfile: upload_scraping/docker/Dockerfile
+volumes:
+  data:
